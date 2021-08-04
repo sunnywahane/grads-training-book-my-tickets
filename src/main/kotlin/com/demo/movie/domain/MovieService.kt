@@ -4,6 +4,4 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class MovieService(@Inject val movieRepository: MovieRepository) {
-
-}
+class MovieService(@Inject val movieRepository: MovieRepository)

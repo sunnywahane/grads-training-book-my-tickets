@@ -5,6 +5,4 @@ import javax.inject.Singleton
 import javax.sql.DataSource
 
 @Singleton
-class MovieRepository(@Inject private val datasource: DataSource) {
-
-}
+class MovieRepository(@Inject private val datasource: DataSource)

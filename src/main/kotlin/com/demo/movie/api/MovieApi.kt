@@ -11,5 +11,4 @@ class MovieApi(@Inject val movieService: MovieService) {
 
     @Get("/movies")
     fun checkIfApprenticeExists(): HttpResponse<String> = HttpResponse.ok("Hello Movies!")
-
 }
