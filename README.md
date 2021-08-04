@@ -14,7 +14,6 @@
 
 ## Steps to run locally:
 - Install postgres(optional), docker
-- Navigate to docker folder in current repository : `cd docker`
 - Run the command : `docker compose up -d`
     - First time this takes time to download the docker image and get the postgresql up.
 - Navigate back to rood of project : `cd ..`
