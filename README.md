@@ -1,27 +1,34 @@
-## Micronaut 2.5.11 Documentation
+## Tech Stack:
+- Open JDK 11
+- [Micronaut Web Framework]((https://docs.micronaut.io/2.5.1/guide/index.html))
+- [Postgres](https://www.postgresql.org/docs/12/index.html) database
+- [Liquibase](https://www.liquibase.org/get-started/quickstart) migration library
+- [Testcontainers](https://www.testcontainers.org/) for database integration test
+- [Docker](https://docs.docker.com/get-started/overview/)
 
-- [User Guide](https://docs.micronaut.io/2.5.11/guide/index.html)
-- [API Reference](https://docs.micronaut.io/2.5.11/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/2.5.11/guide/configurationreference.html)
+- Install JDK:
+  `$brew cask install adoptopenjdk/openjdk/adoptopenjdk11`
+
+- Setup JAVA_HOME: Follow [these](https://www.appsdeveloperblog.com/how-to-set-java_home-on-mac/) steps.
+- Select Gradle JVM Version 11.08
+
+## Steps to run locally:
+- Install postgres(optional), docker
+- Navigate to docker folder in current repository : `cd docker`
+- Run the command : `docker compose up -d`
+    - First time this takes time to download the docker image and get the postgresql up.
+- Navigate back to rood of project : `cd ..`
+- Build: `./gradlew clean build`
+- Build with lint: `./gradlew clean buildWithLint`
+- Apply norm changes: Run `./gradlew norm`
+- Run application: `./gradlew run`. App would run on `http://localhost:9000`
+    - Test application using `http://localhost:9000/api/movies`
+- Run application in watch mode: `./gradlew run -t`
+    - This will restart the server on code changes
+
+## Micronaut 2.5.1 Documentation
+
+- [User Guide](https://docs.micronaut.io/2.5.1/guide/index.html)
+- [API Reference](https://docs.micronaut.io/2.5.1/api/index.html)
+- [Configuration Reference](https://docs.micronaut.io/2.5.1/guide/configurationreference.html)
 - [Micronaut Guides](https://guides.micronaut.io/index.html)
-
----
-
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
-## Feature testcontainers documentation
-
-- [https://www.testcontainers.org/](https://www.testcontainers.org/)
-
-## Feature liquibase documentation
-
-- [Micronaut Liquibase Database Migration documentation](https://micronaut-projects.github.io/micronaut-liquibase/latest/guide/index.html)
-
-- [https://www.liquibase.org/](https://www.liquibase.org/)
-
-## Feature jdbc-hikari documentation
-
-- [Micronaut Hikari JDBC Connection Pool documentation](https://micronaut-projects.github.io/micronaut-sql/latest/guide/index.html#jdbc)
-
