@@ -118,6 +118,7 @@ tasks {
         }
     }
 }
+
 norm {
     jdbcUrl = "jdbc:postgresql://localhost:5432/bmt_db"
     username = "postgres"
