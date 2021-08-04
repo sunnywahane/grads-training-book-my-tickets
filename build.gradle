@@ -124,7 +124,7 @@ norm {
     password = ""
     inputDir = file("src/main/sql")
     outDir = file("src/main/gen")
-    basePath = file("src/main/kotlin/com/demo")
+    basePath = file("src/main/kotlin/com/demo/movie")
 }
 
 task buildWithLint(dependsOn: ['build', 'ktlintCheck'])
