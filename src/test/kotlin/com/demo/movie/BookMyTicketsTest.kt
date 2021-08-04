@@ -10,8 +10,4 @@ class BookMyTicketsTest(private val application: EmbeddedApplication<*>) : Strin
     "test the server is running" {
         assert(application.isRunning)
     }
-
-    "fetch all movies list" {
-
-    }
 })
