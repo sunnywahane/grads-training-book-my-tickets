@@ -1,7 +1,7 @@
 package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
-import com.demo.book.request.MovieRequest
+import com.demo.book.movie.request.MovieRequest
 import movie.GetAllMoviesParams
 import movie.GetAllMoviesQuery
 import movie.SaveMovieParams

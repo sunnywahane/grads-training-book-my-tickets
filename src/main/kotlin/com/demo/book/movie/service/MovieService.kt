@@ -2,7 +2,7 @@ package com.demo.book.movie.service
 
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.repository.MovieRepository
-import com.demo.book.request.MovieRequest
+import com.demo.book.movie.request.MovieRequest
 import javax.inject.Inject
 import javax.inject.Singleton
 

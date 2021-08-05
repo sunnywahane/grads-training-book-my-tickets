@@ -2,7 +2,7 @@ package com.demo.book.api
 
 import com.demo.book.BaseIntegrationSpec
 import com.demo.book.movie.entity.Movie
-import com.demo.book.request.MovieRequest
+import com.demo.book.movie.request.MovieRequest
 import com.demo.book.utils.get
 import com.demo.book.utils.post
 import io.kotest.matchers.shouldBe

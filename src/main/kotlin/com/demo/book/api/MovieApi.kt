@@ -2,7 +2,7 @@ package com.demo.book.api
 
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.service.MovieService
-import com.demo.book.request.MovieRequest
+import com.demo.book.movie.request.MovieRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.Body
