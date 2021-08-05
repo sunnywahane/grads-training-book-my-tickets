@@ -1,60 +1,48 @@
 package com.demo.book.api
 
+import com.demo.book.BaseIntegrationSpec
 import com.demo.book.movie.entity.Movie
 import com.demo.book.request.MovieRequest
 import com.demo.book.utils.get
 import com.demo.book.utils.post
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import io.kotest.core.spec.Spec
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.HttpClient
-import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
-import norm.executeCommand
-import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import javax.inject.Inject
-import javax.sql.DataSource
 
-@MicronautTest
-class MovieApiTest(
-    @Client("/api") private val httpClient: HttpClient,
-    @Inject private val dataSource: DataSource
-) : StringSpec() {
-
-    private val jsonMapper: ObjectMapper = jacksonObjectMapper().also {
-        it.enable(SerializationFeature.INDENT_OUTPUT)
-        it.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    }
-
-    override fun beforeSpec(spec: Spec) {
-        super.beforeSpec(spec)
-        clearData()
-    }
-
-    fun clearData() {
-        dataSource.connection.use { connection ->
-            connection.executeCommand("TRUNCATE movies RESTART IDENTITY CASCADE;")
-        }
-    }
+class MovieApiTest() : BaseIntegrationSpec() {
 
     init {
+        "should save movie" {
+            // Given
+            val referenceDate = ZonedDateTime.of(2021, 5, 21, 11, 15, 0, 0, ZoneId.systemDefault())
+            val avengersMovie = newMovieRequest(
+                referenceDate.toInstant().toEpochMilli(),
+                referenceDate.plusHours(2).toInstant().toEpochMilli()
+            )
+
+            // When
+            val response = createNewMovie(avengersMovie)
+
+            // Then
+            response.status shouldBe HttpStatus.OK
+            response.body.get() shouldBe 1
+        }
+
         "should get all saved movies" {
+            // Given
             val referenceDate = ZonedDateTime.of(2021, 6, 1, 9, 15, 0, 0, ZoneId.systemDefault())
             createNewMovie(newMovieRequest(
                 referenceDate.toInstant().toEpochMilli(),
                 referenceDate.plusHours(2).toInstant().toEpochMilli()
             ))
 
+            // When
             val response = httpClient.get<List<Movie>>("/movies")
 
+            // Then
             response.status shouldBe HttpStatus.OK
             val savedMovies = response.body.get()
             savedMovies.size shouldBe 1
@@ -69,21 +57,18 @@ class MovieApiTest(
         }
     }
 
-    private fun jsonString(movie: Any?) = jsonMapper.writeValueAsString(movie)
-
-    private fun createNewMovie(avengersMovie: MovieRequest) {
-        httpClient.post(
+    private fun createNewMovie(avengersMovie: MovieRequest): HttpResponse<Any> {
+        return httpClient.post(
             url = "/movies",
             body = jsonMapper.writeValueAsString(avengersMovie)
         )
     }
 
     private fun newMovieRequest(startTime: Long, endTime: Long): MovieRequest {
-        val avengersMovie = MovieRequest(
+        return MovieRequest(
             "Avengers",
             startTime,
             endTime
         )
-        return avengersMovie
     }
 }
