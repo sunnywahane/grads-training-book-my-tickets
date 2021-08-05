@@ -8,7 +8,6 @@ import com.demo.book.utils.post
 import io.kotest.matchers.shouldBe
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
