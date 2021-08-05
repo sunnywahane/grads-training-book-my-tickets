@@ -56,7 +56,7 @@ dependencies {
 
 
 application {
-    mainClass.set("com.demo.movie.ApplicationKt")
+    mainClass.set("com.demo.book.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
