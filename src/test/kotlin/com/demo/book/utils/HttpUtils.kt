@@ -1,4 +1,4 @@
-package com.demo.movie.utils
+package com.demo.book.utils
 
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient

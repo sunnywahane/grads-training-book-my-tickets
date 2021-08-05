@@ -1,4 +1,4 @@
-package com.demo.movie
+package com.demo.book
 
 import io.micronaut.runtime.Micronaut.build
 

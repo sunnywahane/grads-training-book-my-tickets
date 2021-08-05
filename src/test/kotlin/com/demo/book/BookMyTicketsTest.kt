@@ -1,4 +1,4 @@
-package com.demo.movie
+package com.demo.book
 
 import io.kotest.core.spec.style.StringSpec
 import io.micronaut.runtime.EmbeddedApplication
