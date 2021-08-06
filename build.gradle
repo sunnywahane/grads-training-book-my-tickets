@@ -13,7 +13,7 @@ plugins {
 sourceSets.main.kotlin.srcDirs += "src/main/gen"
 
 version = "0.1"
-group = "com.demo.movie"
+group = "com.demo.book"
 
 repositories {
     mavenCentral()
@@ -24,7 +24,7 @@ micronaut {
     testRuntime("kotest")
     processing {
         incremental(true)
-        annotations("com.demo.movie.*")
+        annotations("com.demo.book.*")
     }
 }
 
@@ -125,7 +125,7 @@ norm {
     password = ""
     inputDir = file("src/main/sql")
     outDir = file("src/main/gen")
-    basePath = file("src/main/kotlin/com/demo/movie")
+    basePath = file("src/main/kotlin/com/demo/book")
 }
 
 task buildWithLint(dependsOn: ['build', 'ktlintCheck'])

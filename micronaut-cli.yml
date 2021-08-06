@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: com.demo.movie
+defaultPackage: com.demo.book.movie
 testFramework: kotest
 sourceLanguage: kotlin
 buildTool: gradle
