@@ -16,7 +16,6 @@
 - Install postgres(optional), docker
 - Run the command : `docker compose up -d`
     - First time this takes time to download the docker image and get the postgresql up.
-- Navigate back to rood of project : `cd ..`
 - Build: `./gradlew clean build`
 - Build with lint: `./gradlew clean buildWithLint`
 - Apply norm changes: Run `./gradlew norm`
