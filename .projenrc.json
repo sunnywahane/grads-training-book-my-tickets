@@ -1,0 +1,25 @@
+{
+  "type": "@medlypharmacy/kotlin-projen.KotlinProject",
+  "name": "grads-training-book-my-tickets",
+  "rootProject": {
+    "features": [
+      "repos",
+      "extension",
+      "flatkt",
+      "kt"
+    ],
+    "plugins": [
+      {
+        "name": "jacoco"
+      },
+      {
+        "name": "org.jlleitschuh.gradle.ktlint",
+        "version": "10.3.0"
+      },
+      {
+        "name": "io.gitlab.arturbosch.detekt",
+        "version": "1.20.0"
+      }
+    ]
+  }
+}
