@@ -12,7 +12,7 @@ micronaut:
 
 datasources:
   default:
-    url: ${JDBC_DATABASE_URL:`jdbc:postgresql://localhost:5432/bmt_db`}
+    url: ${JDBC_DATABASE_URL:`jdbc:postgresql://localhost:5433/bmt_db`}
     driverClassName: org.postgresql.Driver
     username: ${JDBC_DATABASE_USERNAME:`postgres`}
     password: ${JDBC_DATABASE_PASSWORD:``}

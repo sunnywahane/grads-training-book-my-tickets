@@ -120,7 +120,7 @@ tasks {
 }
 
 norm {
-    jdbcUrl = "jdbc:postgresql://localhost:5432/bmt_db"
+    jdbcUrl = "jdbc:postgresql://localhost:5433/bmt_db"
     username = "postgres"
     password = ""
     inputDir = file("src/main/sql")
