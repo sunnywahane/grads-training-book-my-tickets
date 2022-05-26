@@ -12,10 +12,6 @@ micronaut {
 
 sourceSets.main.kotlin.srcDirs += "src/main/gen"
 
-kapt {
-
-}
-
 dependencies {
     kapt("io.micronaut:micronaut-http-validation")
     implementation "io.micronaut:micronaut-http-client"
@@ -24,6 +20,7 @@ dependencies {
     implementation "io.micronaut.liquibase:micronaut-liquibase"
     implementation "javax.annotation:javax.annotation-api"
     implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+    implementation("javax.inject:javax.inject:1")
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
     implementation "io.micronaut:micronaut-validation"
     implementation 'com.medly:ktee:1.0.0'

@@ -2,14 +2,12 @@
 pluginManagement {
     plugins {
         id 'jacoco'
-        id 'org.jlleitschuh.gradle.ktlint' version '10.3.0'
-        id 'io.gitlab.arturbosch.detekt' version '1.20.0'
-        id 'dev.medly.repos' version '0.0.9'
         id 'dev.medly.kotlin' version '0.0.9'
-        id 'dev.medly.flatkt' version '0.0.9'
+        id 'org.jlleitschuh.gradle.ktlint' version '10.3.0'
+        id 'io.micronaut.application' version '3.4.0'
+        id 'dev.medly.repos' version '0.0.9'
         id 'com.medly.norm' version '0.0.7'
         id 'com.github.node-gradle.node' version '3.2.1'
-        id 'io.micronaut.application' version '3.4.0'
     }
     repositories {
         exclusiveContent {
@@ -33,7 +31,7 @@ pluginManagement {
                 includeGroup "dev.medly" // plugin artifact's group id
             }
         }
-
+    
         gradlePluginPortal();
     }
 }

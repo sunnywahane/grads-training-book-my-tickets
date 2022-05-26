@@ -11,7 +11,7 @@ import io.micronaut.http.HttpStatus
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-class MovieApiTest() : BaseIntegrationSpec() {
+class MovieApiTest : BaseIntegrationSpec() {
 
     init {
         "should save movie" {
