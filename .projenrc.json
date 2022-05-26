@@ -5,7 +5,6 @@
     "features": [
       "repos",
       "extension",
-      "kt",
       "norm",
       "pg"
     ],
@@ -13,10 +12,8 @@
       {
         "name": "jacoco"
       },
-      {
-        "name": "dev.medly.kotlin",
-        "version": "0.0.9"
-      },
+      { "name":  "org.jetbrains.kotlin.jvm", "version": "1.6.20"},
+      { "name":  "org.jetbrains.kotlin.kapt", "version" : "1.6.20"},
       {
         "name": "org.jlleitschuh.gradle.ktlint",
         "version": "10.3.0"
