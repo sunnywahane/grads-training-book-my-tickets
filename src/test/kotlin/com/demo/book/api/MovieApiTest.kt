@@ -33,10 +33,12 @@ class MovieApiTest : BaseIntegrationSpec() {
         "should get all saved movies" {
             // Given
             val referenceDate = ZonedDateTime.of(2021, 6, 1, 9, 15, 0, 0, ZoneId.systemDefault())
-            createNewMovie(newMovieRequest(
-                referenceDate.toInstant().toEpochMilli(),
-                referenceDate.plusHours(2).toInstant().toEpochMilli()
-            ))
+            createNewMovie(
+                newMovieRequest(
+                    referenceDate.toInstant().toEpochMilli(),
+                    referenceDate.plusHours(2).toInstant().toEpochMilli()
+                )
+            )
 
             // When
             val response = httpClient.get<List<Movie>>("/movies")
