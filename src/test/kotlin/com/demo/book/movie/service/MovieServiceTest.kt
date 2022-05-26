@@ -48,6 +48,17 @@ class MovieServiceTest : StringSpec() {
             actual shouldBe expected
         }
 
+        "Adding a movie with length 3 hours" {
+            val movieRequest = MovieRequest("test", 1653570000000, 1653580800000)
+            val expected = Movie(1, "test",
+                LocalDateTime.ofEpochSecond(1653570000000,0, ZoneOffset.UTC),
+                LocalDateTime.ofEpochSecond(1653580800000, 0, ZoneOffset.UTC))
+            every { MovieService(mockMovieRepository).save(movieRequest) } returns expected
+
+            val actual = MovieService(mockMovieRepository).save(movieRequest)
+            actual shouldBe expected
+        }
+
         "Adding a movie with length less than 4 minutes should throw an error"{
             val movieRequest = MovieRequest("test", 1653586200000, 1653586380000)
             assertThrows<InvalidDurationException> {
