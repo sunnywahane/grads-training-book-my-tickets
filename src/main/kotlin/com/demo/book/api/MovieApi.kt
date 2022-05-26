@@ -3,7 +3,9 @@ package com.demo.book.api
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.service.MovieService
 import com.demo.book.movie.request.MovieRequest
+import com.demo.book.movie.service.InvalidDurationException
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -21,6 +23,12 @@ class MovieApi(@Inject val movieService: MovieService) {
 
     @Post("/movies")
     fun saveMovie(@Body movieRequest: MovieRequest): MutableHttpResponse<Int> {
-        return HttpResponse.ok(movieService.save(movieRequest).id)
+        try {
+            return HttpResponse.ok(movieService.save(movieRequest).id)
+        }
+        catch (e: InvalidDurationException){
+            return  HttpResponse.status(HttpStatus.UNPROCESSABLE_ENTITY, "Duration cannot be less than 5 minutes and more than 6 hours")
+        }
+
     }
 }
