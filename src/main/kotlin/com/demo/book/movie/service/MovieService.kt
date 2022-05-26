@@ -9,9 +9,7 @@ import kotlin.math.abs
 @Singleton
 class MovieService(@Inject val movieRepository: MovieRepository) {
     fun save(movieRequest: MovieRequest): Movie {
-
         val seconds= (abs(movieRequest.startTime - movieRequest.endTime)/1000)
-        print(seconds)
         if ( seconds < 300 || seconds > 21600) throw InvalidDurationException("Invalid duration")
         return movieRepository.save(movieRequest)
     }
