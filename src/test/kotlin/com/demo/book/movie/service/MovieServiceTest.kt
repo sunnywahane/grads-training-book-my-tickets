@@ -29,24 +29,24 @@ class MovieServiceTest : StringSpec() {
     init {
 
         "Adding a movie with length 5 minutes" {
-            val movieRequest = getDummyMovieRequest(1653586200000, 1653586500000)
-            val expected = getDummyMovie(1653586200000, 1653586500000)
+            val movieRequest = getDummyMovieRequest(5)
+            val expected = getDummyMovie(5)
             every { mockMovieRepository.save(movieRequest) } returns expected
             val actual = MovieService(mockMovieRepository).save(movieRequest)
             actual shouldBe expected
         }
 
         "Adding a movie with length 6 hours" {
-            val movieRequest = getDummyMovieRequest(1653570000000, 1653591600000)
-            val expected = getDummyMovie(1653570000000,1653591600000)
+            val movieRequest = getDummyMovieRequest(360)
+            val expected = getDummyMovie(360)
             every { mockMovieRepository.save(movieRequest) } returns expected
             val actual = MovieService(mockMovieRepository).save(movieRequest)
             actual shouldBe expected
         }
 
         "Adding a movie with length 3 hours" {
-            val movieRequest = getDummyMovieRequest(1653570000000, 1653580800000)
-            val expected = getDummyMovie(1653570000000, 1653580800000)
+            val movieRequest = getDummyMovieRequest(180)
+            val expected = getDummyMovie(180)
             every { mockMovieRepository.save(movieRequest) } returns expected
             val actual = MovieService(mockMovieRepository).save(movieRequest)
             actual shouldBe expected
@@ -55,7 +55,7 @@ class MovieServiceTest : StringSpec() {
         "Adding a movie with length less than 4 minutes should throw an error"{
             assertThrows<InvalidDurationException> {
                 MovieService(mockMovieRepository).save(
-                    getDummyMovieRequest(1653586200000, 1653586380000)
+                    getDummyMovieRequest(4)
                 )
             }
         }
@@ -63,7 +63,7 @@ class MovieServiceTest : StringSpec() {
         "Adding a movie with length less than 0 minutes should throw an error"{
             assertThrows<InvalidDurationException> {
                 MovieService(mockMovieRepository).save(
-                    getDummyMovieRequest(1653586200000, 1653586200000)
+                    getDummyMovieRequest(0)
                 )
             }
         }
@@ -71,19 +71,18 @@ class MovieServiceTest : StringSpec() {
         "Adding a movie with length 6 hours and 1 minute should throw error" {
             assertThrows<InvalidDurationException> {
                 MovieService(mockMovieRepository).save(
-                    getDummyMovieRequest(1653550200000, 1653571860000)
+                    getDummyMovieRequest(361)
                 )
             }
         }
     }
 
-    private fun getDummyMovieRequest(startTime: Long, endTime: Long): MovieRequest{
-        return MovieRequest("test", startTime, endTime)
+    private fun getDummyMovieRequest(duration: Int): MovieRequest{
+        return MovieRequest("test",duration)
     }
 
-    private fun getDummyMovie(startTime: Long, endTime: Long): Movie{
+    private fun getDummyMovie(duration: Int): Movie{
         return Movie(1, "test",
-            LocalDateTime.ofEpochSecond(startTime,0, ZoneOffset.UTC),
-            LocalDateTime.ofEpochSecond(endTime, 0, ZoneOffset.UTC))
+            duration)
     }
 }

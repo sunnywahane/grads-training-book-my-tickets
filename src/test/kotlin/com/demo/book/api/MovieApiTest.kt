@@ -20,8 +20,7 @@ class MovieApiTest : BaseIntegrationSpec() {
             // Given
             val referenceDate = ZonedDateTime.of(2021, 5, 21, 11, 15, 0, 0, ZoneId.systemDefault())
             val avengersMovie = newMovieRequest(
-                referenceDate.toInstant().toEpochMilli(),
-                referenceDate.plusHours(2).toInstant().toEpochMilli()
+                120
             )
 
             // When
@@ -37,8 +36,7 @@ class MovieApiTest : BaseIntegrationSpec() {
             val referenceDate = ZonedDateTime.of(2021, 6, 1, 9, 15, 0, 0, ZoneId.systemDefault())
             createNewMovie(
                 newMovieRequest(
-                    referenceDate.toInstant().toEpochMilli(),
-                    referenceDate.plusHours(2).toInstant().toEpochMilli()
+                    120
                 )
             )
 
@@ -53,8 +51,7 @@ class MovieApiTest : BaseIntegrationSpec() {
                 |{
                 |  "id" : 1,
                 |  "title" : "Avengers",
-                |  "startTime" : "2021-06-01 09:15:00.000",
-                |  "endTime" : "2021-06-01 11:15:00.000"
+                |  "duration" : 120
                 |}
             """.trimMargin().trimIndent()
         }
@@ -63,8 +60,7 @@ class MovieApiTest : BaseIntegrationSpec() {
             // Given
             val referenceDate = ZonedDateTime.of(2021, 5, 21, 11, 15, 0, 0, ZoneId.systemDefault())
             val avengersMovie = newMovieRequest(
-                referenceDate.toInstant().toEpochMilli(),
-                referenceDate.plusHours(7).toInstant().toEpochMilli()
+                420
             )
 
             //When
@@ -83,11 +79,10 @@ class MovieApiTest : BaseIntegrationSpec() {
         )
     }
 
-    private fun newMovieRequest(startTime: Long, endTime: Long): MovieRequest {
+    private fun newMovieRequest(duration: Int): MovieRequest {
         return MovieRequest(
             "Avengers",
-            startTime,
-            endTime
+            duration
         )
     }
 }
