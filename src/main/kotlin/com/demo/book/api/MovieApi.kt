@@ -19,15 +19,16 @@ class MovieApi(@Inject val movieService: MovieService) {
     @Get("/movies")
     fun allMovies(): HttpResponse<List<Movie>> {
         return HttpResponse.ok(movieService.allMovies())
+        println()
     }
 
     @Post("/movies")
     fun saveMovie(@Body movieRequest: MovieRequest): MutableHttpResponse<Int> {
-        try {
-            return HttpResponse.ok(movieService.save(movieRequest).id)
+        return try {
+             HttpResponse.ok(movieService.save(movieRequest).id)
         }
         catch (e: InvalidDurationException){
-            return  HttpResponse.status(HttpStatus.UNPROCESSABLE_ENTITY, "Duration cannot be less than 5 minutes and more than 6 hours")
+             HttpResponse.status(HttpStatus.UNPROCESSABLE_ENTITY, "Duration cannot be less than 5 minutes and more than 6 hours")
         }
 
     }
