@@ -19,7 +19,6 @@ class MovieApi(@Inject val movieService: MovieService) {
     @Get("/movies")
     fun allMovies(): HttpResponse<List<Movie>> {
         return HttpResponse.ok(movieService.allMovies())
-        println()
     }
 
     @Post("/movies")
