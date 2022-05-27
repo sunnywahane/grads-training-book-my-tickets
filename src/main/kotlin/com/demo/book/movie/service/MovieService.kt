@@ -6,11 +6,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.abs
 
+const val MOVIE_DURATION_LOWER_LIMIT_IN_SECONDS = 300
+const val MOVIE_DURATION_UPPER_LIMIT_IN_SECONDS = 21600
 @Singleton
 class MovieService(@Inject val movieRepository: MovieRepository) {
     fun save(movieRequest: MovieRequest): Movie {
-        val seconds= (abs(movieRequest.startTime - movieRequest.endTime)/1000)
-        if ( seconds < 300 || seconds > 21600) throw InvalidDurationException("Invalid duration")
+        val durationInSeconds= (abs(movieRequest.startTime - movieRequest.endTime)/1000)
+        if ( durationInSeconds !in MOVIE_DURATION_LOWER_LIMIT_IN_SECONDS..MOVIE_DURATION_UPPER_LIMIT_IN_SECONDS)
+            throw InvalidDurationException("")
         return movieRepository.save(movieRequest)
     }
 
