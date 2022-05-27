@@ -8,6 +8,8 @@ import com.demo.book.utils.post
 import io.kotest.matchers.shouldBe
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.exceptions.HttpClientResponseException
+import org.junit.jupiter.api.assertThrows
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -55,6 +57,22 @@ class MovieApiTest : BaseIntegrationSpec() {
                 |  "endTime" : "2021-06-01 11:15:00.000"
                 |}
             """.trimMargin().trimIndent()
+        }
+
+        "should return error" {
+            // Given
+            val referenceDate = ZonedDateTime.of(2021, 5, 21, 11, 15, 0, 0, ZoneId.systemDefault())
+            val avengersMovie = newMovieRequest(
+                referenceDate.toInstant().toEpochMilli(),
+                referenceDate.plusHours(7).toInstant().toEpochMilli()
+            )
+
+            //When
+            try {
+                val response = createNewMovie(avengersMovie)
+            } catch (e: HttpClientResponseException) {
+                e.status shouldBe HttpStatus.UNPROCESSABLE_ENTITY
+            }
         }
     }
 
