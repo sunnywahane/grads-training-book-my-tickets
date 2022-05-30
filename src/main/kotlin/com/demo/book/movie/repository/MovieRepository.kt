@@ -1,11 +1,9 @@
 package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
+import com.demo.book.movie.entity.Show
 import com.demo.book.movie.request.MovieRequest
-import movie.GetAllMoviesParams
-import movie.GetAllMoviesQuery
-import movie.SaveMovieParams
-import movie.SaveMovieQuery
+import movie.*
 import norm.query
 import java.sql.Timestamp
 import java.time.Instant
@@ -44,4 +42,20 @@ class MovieRepository(@Inject private val datasource: DataSource) {
             it.duration!!
         )
     }
+
+    fun findOne(id: Int): Movie = datasource.connection.use {
+            connection ->  MovieByIdQuery().query(
+        connection,
+        MovieByIdParams(
+            id
+        )
+    )
+    }.map {
+        Movie(
+            it.id,
+            it.title,
+            it.duration!!
+        )
+    }.first()
+
 }

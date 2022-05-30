@@ -20,4 +20,10 @@ class MovieService(@Inject val movieRepository: MovieRepository) {
     fun allMovies(): List<Movie> {
         return movieRepository.findAll()
     }
+
+    fun findMovieById(id : Int): Movie{
+        return movieRepository.findOne(id)
+    }
+
+
 }
