@@ -3,7 +3,7 @@ micronaut:
     name: bookMyTickets
   server:
     port: ${PORT:9000}
-    git
+    context-path: /api
   http:
     client:
       read-timeout: 60
