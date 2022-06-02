@@ -2,7 +2,6 @@ package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.entity.Screen
-import com.demo.book.movie.request.MovieRequest
 import com.demo.book.movie.request.ScreenRequest
 import movie.*
 import norm.query
@@ -26,4 +25,17 @@ class ScreenRepository(@Inject private val datasource: DataSource) {
             it.capacity
         )
     }.first()
+
+    fun findAll(): List<Screen> = datasource.connection.use { connection ->
+        GetAllScreensQuery().query(
+            connection,
+            GetAllScreensParams()
+        )
+    }.map {
+        Screen(
+            it.id,
+            it.title,
+            it.capacity
+        )
+    }
 }

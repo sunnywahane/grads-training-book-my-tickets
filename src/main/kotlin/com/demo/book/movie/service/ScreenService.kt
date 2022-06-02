@@ -15,6 +15,6 @@ class ScreenService(@Inject val screenRepository: ScreenRepository) {
     }
 
     fun allMovies(): List<Screen> {
-        return listOf(Screen(1, "Screen 1", 100))
+        return screenRepository.findAll()
     }
 }
