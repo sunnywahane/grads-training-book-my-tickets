@@ -7,6 +7,7 @@ import com.demo.book.movie.request.ShowRequest
 import com.demo.book.movie.service.MovieService
 import com.demo.book.movie.service.ScreenService
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
@@ -23,6 +24,10 @@ class ScreenApi(@Inject val screenService: ScreenService) {
 
     @Post
     fun addScreen(@Body screeRequest: ScreenRequest): HttpResponse<Int> {
-        return HttpResponse.ok(screenService.save(screeRequest).id)
+        return try{
+            HttpResponse.ok(screenService.save(screeRequest).id)
+        }catch (error: Exception){
+            HttpResponse.status(HttpStatus.BAD_REQUEST, error.message)
+        }
     }
 }

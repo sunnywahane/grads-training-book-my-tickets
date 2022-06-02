@@ -10,6 +10,12 @@ import javax.inject.Singleton
 class ScreenService(@Inject val screenRepository: ScreenRepository) {
 
     fun save(screenRequest: ScreenRequest): Screen {
+        val screens = screenRepository.findAll()
+        screens.forEach {
+            if (it.title == screenRequest.title) {
+                throw Exception("Screen already exists")
+            }
+        }
         return screenRepository.save(screenRequest)
     }
 
