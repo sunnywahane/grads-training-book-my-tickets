@@ -64,7 +64,7 @@ class ShowApiTest : BaseIntegrationSpec() {
                 |  "id" : 1,
                 |  "startTime" : "2021-06-01 09:15:00.000",
                 |  "movieId" : 1,
-                |  "price" : 100.00
+                |  "price" : 100.0
                 |}
             """.trimMargin().trimIndent()
         }
@@ -88,7 +88,7 @@ class ShowApiTest : BaseIntegrationSpec() {
                 val response = createNewShow(
                     newShowRequest(referenceDate.toInstant().toEpochMilli()))
             } catch (e: HttpClientResponseException) {
-                e.status shouldBe HttpStatus.BAD_REQUEST
+                e.status shouldBe HttpStatus.CONFLICT
             }
         }
     }
