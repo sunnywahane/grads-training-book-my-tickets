@@ -5,6 +5,7 @@ import com.demo.book.movie.entity.Show
 import com.demo.book.movie.repository.MovieRepository
 import com.demo.book.movie.repository.ShowRepository
 import com.demo.book.movie.request.ShowRequest
+import com.demo.book.movie.request.BookRequest
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.test.TestCase
@@ -82,9 +83,19 @@ class ShowServiceTest : StringSpec() {
 
         "should be able to book seats" {
             val bookRequest = getDummyBookRequest(20)
-            every { mockShowRepository.update(newShow) } returns true
-            ShowService(mockShowRepository, mockMovieService).update(bookRequest)
+            every { mockShowRepository.update(bookRequest) } returns true
+            val actual = ShowService(mockShowRepository, mockMovieService).update(bookRequest)
+            actual shouldBe true
         }
+
+        "should throw an error when seats are not available" {
+            val bookRequest = getDummyBookRequest(200)
+            shouldThrow<UnsupportedOperationException> {
+                ShowService(mockShowRepository, mockMovieService).update(bookRequest)
+            }
+
+        }
+
     }
 
     private fun getDummyShowRequest(startTime:ZonedDateTime): ShowRequest {
@@ -94,7 +105,7 @@ class ShowServiceTest : StringSpec() {
     private fun getDummyShow(id: Int, startTime: ZonedDateTime): Show {
         return Show(id, startTime.toLocalDateTime(), 1, 120)
     }
-    private fun getDummyBookRequest(tickets: Int): Show {
+    private fun getDummyBookRequest(tickets: Int): BookRequest {
         return BookRequest(1, tickets)
     }
 

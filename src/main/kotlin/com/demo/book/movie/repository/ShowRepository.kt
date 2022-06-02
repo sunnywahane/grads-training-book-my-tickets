@@ -2,6 +2,7 @@ package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.entity.Show
+import com.demo.book.movie.request.BookRequest
 import com.demo.book.movie.request.MovieRequest
 import com.demo.book.movie.request.ShowRequest
 import liquibase.pro.packaged.it
@@ -45,6 +46,11 @@ class ShowRepository(@Inject private val datasource: DataSource) {
             it.movieId,
             it.seats
         )
+    }
+
+    fun update(bookRequest: BookRequest): Boolean {
+        return true
+
     }
 
 }

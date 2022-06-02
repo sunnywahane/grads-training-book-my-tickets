@@ -2,6 +2,7 @@ package com.demo.book.movie.service
 
 import com.demo.book.movie.entity.Show
 import com.demo.book.movie.repository.ShowRepository
+import com.demo.book.movie.request.BookRequest
 import com.demo.book.movie.request.ShowRequest
 import java.time.ZoneOffset
 import javax.inject.Inject
@@ -27,5 +28,9 @@ class ShowService(@Inject val showRepository: ShowRepository, @Inject val movieS
 
     fun allShows(): List<Show> {
         return showRepository.findAll().sortedByDescending { it.startTime }
+    }
+
+    fun update(bookRequest: BookRequest) : Boolean{
+        return true
     }
 }
