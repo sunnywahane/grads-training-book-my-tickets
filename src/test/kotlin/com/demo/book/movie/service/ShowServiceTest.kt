@@ -2,7 +2,6 @@ package com.demo.book.movie.service
 
 import com.demo.book.movie.entity.Movie
 import com.demo.book.movie.entity.Show
-import com.demo.book.movie.repository.MovieRepository
 import com.demo.book.movie.repository.ShowRepository
 import com.demo.book.movie.request.ShowRequest
 import io.kotest.assertions.throwables.shouldThrow
@@ -84,10 +83,10 @@ class ShowServiceTest : StringSpec() {
     }
 
     private fun getDummyShowRequest(startTime:ZonedDateTime): ShowRequest {
-        return ShowRequest(startTime.toInstant().toEpochMilli(),1)
+        return ShowRequest(startTime.toInstant().toEpochMilli(),1, 200.0)
     }
 
     private fun getDummyShow(id: Int, startTime: ZonedDateTime): Show {
-        return Show(id, startTime.toLocalDateTime(), 1)
+        return Show(id, startTime.toLocalDateTime(), 1, 500.0)
     }
 }
