@@ -11,10 +11,10 @@ import javax.inject.Inject
 class ScreenService(@Inject val screenRepository: ScreenRepository) {
 
     fun save(screenRequest: ScreenRequest): Screen {
-        return Screen(
-                1,
-                screenRequest.title,
-                screenRequest.capacity
-        )
+        return screenRepository.save(screenRequest)
+    }
+
+    fun allMovies(): List<Screen> {
+        return listOf(Screen(1, "Screen 1", 100))
     }
 }
