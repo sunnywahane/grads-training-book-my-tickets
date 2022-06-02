@@ -9,6 +9,29 @@ micronaut:
       read-timeout: 60
   security:
     enabled: false
+    intercept-url-map:
+      - pattern: /**/*
+        http-method: POST
+        access:
+          - isAuthenticated()
+      - pattern: /**/*
+        http-method: GET
+        access:
+          - isAuthenticated()
+      - pattern: /**/*
+        http-method: PUT
+        access:
+          - isAuthenticated()
+      - pattern: /**/*
+        access:
+          - isAuthenticated()
+    token:
+      jwt:
+        okta-auth-configuration:
+          is-dev-env: true
+          trusted-clients: [ ]
+          auth-servers:
+            default: default
 
 datasources:
   default:

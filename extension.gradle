@@ -26,6 +26,7 @@ dependencies {
     implementation 'com.medly:ktee:1.0.0'
     implementation("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation 'dev.medly:auth-token:0.0.3'
     runtimeOnly "ch.qos.logback:logback-classic"
     runtimeOnly "com.fasterxml.jackson.module:jackson-module-kotlin"
 
@@ -97,7 +98,7 @@ compileTestKotlin {
 }
 
 norm {
-    jdbcUrl = "jdbc:postgresql://localhost:5432/bmt_db"
+    jdbcUrl = "jdbc:postgresql://localhost:5433/bmt_db"
     username = "postgres"
     password = ""
     inputDir = file("src/main/sql")
