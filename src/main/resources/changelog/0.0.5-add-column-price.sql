@@ -1,2 +1,2 @@
 Alter table shows
-add column price INTEGER NOT NULL;
+add column price DECIMAL NOT NULL;

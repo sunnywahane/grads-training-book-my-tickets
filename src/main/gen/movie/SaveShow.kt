@@ -1,5 +1,6 @@
 package movie
 
+import java.math.BigDecimal
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.Timestamp
@@ -13,14 +14,14 @@ import norm.RowMapper
 public data class SaveShowParams(
   public val start_time: Timestamp?,
   public val movie_id: Int?,
-  public val price: Int?
+  public val price: BigDecimal?
 )
 
 public class SaveShowParamSetter : ParamSetter<SaveShowParams> {
   public override fun map(ps: PreparedStatement, params: SaveShowParams): Unit {
     ps.setObject(1, params.start_time)
     ps.setObject(2, params.movie_id)
-      ps.setObject(3, params.price)
+    ps.setObject(3, params.price)
   }
 }
 
@@ -29,7 +30,7 @@ public class SaveShowRowMapper : RowMapper<SaveShowResult> {
   id = rs.getObject("id") as kotlin.Int,
     startTime = rs.getObject("start_time") as java.sql.Timestamp,
     movieId = rs.getObject("movie_id") as kotlin.Int,
-    price = rs.getObject("price") as kotlin.Int)
+    price = rs.getObject("price") as java.math.BigDecimal)
 }
 
 public class SaveShowQuery : Query<SaveShowParams, SaveShowResult> {
@@ -48,5 +49,5 @@ public data class SaveShowResult(
   public val id: Int,
   public val startTime: Timestamp,
   public val movieId: Int,
-  public val price: Int
+  public val price: BigDecimal
 )
