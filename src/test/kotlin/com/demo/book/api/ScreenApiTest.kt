@@ -1,27 +1,39 @@
 package com.demo.book.api
 
-import com.demo.book.movie.service.ScreenService
-import io.kotest.core.spec.style.StringSpec
-import io.mockk.mockk
+import com.demo.book.BaseIntegrationSpec
+import com.demo.book.movie.request.ScreenRequest
+import com.demo.book.utils.post
 import io.kotest.matchers.shouldBe
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 
-class ScreenApiTest : StringSpec(){
+class ScreenApiTest : BaseIntegrationSpec() {
 
-    init{
-        "should return ok for get method"{
-            val mockScreenService = mockk<ScreenService>(relaxed = true)
-            val screenApi = ScreenApi(mockScreenService);
-            val resultStatus = screenApi.allScreens().status;
-            resultStatus shouldBe HttpStatus.OK
-        }
+    init {
+        "should save screen" {
+            // Given
+            val screenReq = newScreenRequest()
 
-        "should return ok for post method"{
-            val mockScreenService = mockk<ScreenService>(relaxed = true)
-            val screenApi = ScreenApi(mockScreenService);
-            val resultStatus = screenApi.addScreen().status;
-            resultStatus shouldBe HttpStatus.OK
+            // When
+            val response = createNewScreen(screenReq)
+
+            // Then
+            response.status shouldBe HttpStatus.OK
+            response.body.get() shouldBe 1
         }
     }
 
+    private fun createNewScreen(screenReq: ScreenRequest): HttpResponse<Any> {
+        return httpClient.post(
+            url = "/screens",
+            body = jsonMapper.writeValueAsString(screenReq)
+        )
+    }
+
+    private fun newScreenRequest(): ScreenRequest {
+        return ScreenRequest(
+            "Avengers",
+            50
+        )
+    }
 }
