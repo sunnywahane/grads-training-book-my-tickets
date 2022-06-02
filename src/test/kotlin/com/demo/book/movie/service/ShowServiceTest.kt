@@ -88,6 +88,6 @@ class ShowServiceTest : StringSpec() {
     }
 
     private fun getDummyShow(id: Int, startTime: ZonedDateTime): Show {
-        return Show(id, startTime.toLocalDateTime(), 1)
+        return Show(id, startTime.toLocalDateTime(), 1, 120)
     }
 }
