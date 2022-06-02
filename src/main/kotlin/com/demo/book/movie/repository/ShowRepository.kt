@@ -21,14 +21,17 @@ class ShowRepository(@Inject private val datasource: DataSource) {
             connection,
             SaveShowParams(
                 Timestamp.from(Instant.ofEpochMilli(showToSave.startTime)),
-                showToSave.movieId
+                showToSave.movieId,
+                showToSave.price
             )
         )
     }.map {
         Show(
             it.id,
             it.startTime.toLocalDateTime(),
-            it.movieId
+            it.movieId,
+            it.price
+
         )
     }.first()
 
@@ -41,7 +44,8 @@ class ShowRepository(@Inject private val datasource: DataSource) {
         Show(
             it.id,
             it.startTime.toLocalDateTime(),
-            it.movieId
+            it.movieId,
+            it.price
         )
     }
 

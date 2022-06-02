@@ -102,7 +102,8 @@ class ShowApiTest : BaseIntegrationSpec() {
     private fun newShowRequest(start_time: Long): ShowRequest {
         return ShowRequest(
             startTime = start_time,
-            1
+            1,
+            100
         )
     }
 

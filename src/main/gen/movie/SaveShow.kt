@@ -12,13 +12,15 @@ import norm.RowMapper
 
 public data class SaveShowParams(
   public val start_time: Timestamp?,
-  public val movie_id: Int?
+  public val movie_id: Int?,
+  public val price: Int?
 )
 
 public class SaveShowParamSetter : ParamSetter<SaveShowParams> {
   public override fun map(ps: PreparedStatement, params: SaveShowParams): Unit {
     ps.setObject(1, params.start_time)
     ps.setObject(2, params.movie_id)
+      ps.setObject(3, params.price)
   }
 }
 
@@ -26,13 +28,14 @@ public class SaveShowRowMapper : RowMapper<SaveShowResult> {
   public override fun map(rs: ResultSet): SaveShowResult = SaveShowResult(
   id = rs.getObject("id") as kotlin.Int,
     startTime = rs.getObject("start_time") as java.sql.Timestamp,
-    movieId = rs.getObject("movie_id") as kotlin.Int)
+    movieId = rs.getObject("movie_id") as kotlin.Int,
+    price = rs.getObject("price") as kotlin.Int)
 }
 
 public class SaveShowQuery : Query<SaveShowParams, SaveShowResult> {
   public override val sql: String = """
-      |INSERT INTO shows(start_time, movie_id)
-      |VALUES (?, ?)
+      |INSERT INTO shows(start_time, movie_id, price)
+      |VALUES (?, ?, ?)
       |returning *;
       |""".trimMargin()
 
@@ -44,5 +47,6 @@ public class SaveShowQuery : Query<SaveShowParams, SaveShowResult> {
 public data class SaveShowResult(
   public val id: Int,
   public val startTime: Timestamp,
-  public val movieId: Int
+  public val movieId: Int,
+  public val price: Int
 )

@@ -16,7 +16,6 @@ import javax.inject.Inject
 @Controller
 class MovieApi(@Inject val movieService: MovieService) {
 
-    @ClaimsAllowed(claimKey = "adminRights", claimValues = ["read"])
     @Get("/movies")
     fun allMovies(): HttpResponse<List<Movie>> {
         return HttpResponse.ok(movieService.allMovies())
