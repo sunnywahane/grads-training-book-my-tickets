@@ -118,7 +118,9 @@ class ShowApiTest : BaseIntegrationSpec() {
     private fun newMovieRequest(duration: Int): MovieRequest {
         return MovieRequest(
             "Avengers",
-            duration
+            duration,
+            "English",
+            100.00
         )
     }
 

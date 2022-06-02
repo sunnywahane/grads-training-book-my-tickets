@@ -1,12 +1,9 @@
 package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
-import com.demo.book.movie.entity.Show
 import com.demo.book.movie.request.MovieRequest
 import movie.*
 import norm.query
-import java.sql.Timestamp
-import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.sql.DataSource
@@ -19,14 +16,18 @@ class MovieRepository(@Inject private val datasource: DataSource) {
             connection,
             SaveMovieParams(
                 movieToSave.title,
-                movieToSave.duration
+                movieToSave.duration,
+                movieToSave.language,
+                movieToSave.price.toBigDecimal()
             )
         )
     }.map {
         Movie(
             it.id,
             it.title,
-            it.duration!!
+            it.duration!!,
+            it.language!!,
+            it.price!!.toDouble(),
         )
     }.first()
 
@@ -39,7 +40,9 @@ class MovieRepository(@Inject private val datasource: DataSource) {
         Movie(
             it.id,
             it.title,
-            it.duration!!
+            it.duration!!,
+            it.language!!,
+            it.price!!.toDouble(),
         )
     }
 
@@ -54,7 +57,9 @@ class MovieRepository(@Inject private val datasource: DataSource) {
         Movie(
             it.id,
             it.title,
-            it.duration!!
+            it.duration!!,
+            it.language!!,
+            it.price!!.toDouble(),
         )
     }.first()
 
