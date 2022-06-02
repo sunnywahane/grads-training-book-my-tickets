@@ -65,21 +65,25 @@ class ShowServiceTest : StringSpec() {
 
         "Adding an show overlapping with an existing show should throw an error" {
             val referenceDate = ZonedDateTime.of(2021, 5, 21, 1, 15, 0, 0, ZoneId.systemDefault())
-            val existingShow= getDummyShow(1, referenceDate)
+            val existingShow = getDummyShow(1, referenceDate)
 
             val referenceDateTwo = ZonedDateTime.of(2021, 5, 21, 1, 30, 0, 0, ZoneId.systemDefault())
             val newShow = getDummyShowRequest(referenceDateTwo)
 
 
             every { mockShowRepository.findAll() } returns listOf(existingShow)
-            every { mockMovieService.findMovieById(1) } returns Movie(1,"test", 30)
+            every { mockMovieService.findMovieById(1) } returns Movie(1, "test", 30)
             every { mockShowRepository.save(newShow) } returns getDummyShow(1, referenceDate)
 
             shouldThrow<UnsupportedOperationException> {
                 ShowService(mockShowRepository, mockMovieService).save(newShow)
             }
+        }
 
-
+        "should be able to book seats" {
+            val bookRequest = getDummyBookRequest(20)
+            every { mockShowRepository.update(newShow) } returns true
+            ShowService(mockShowRepository, mockMovieService).update(bookRequest)
         }
     }
 
@@ -90,4 +94,8 @@ class ShowServiceTest : StringSpec() {
     private fun getDummyShow(id: Int, startTime: ZonedDateTime): Show {
         return Show(id, startTime.toLocalDateTime(), 1, 120)
     }
+    private fun getDummyBookRequest(tickets: Int): Show {
+        return BookRequest(1, tickets)
+    }
+
 }
