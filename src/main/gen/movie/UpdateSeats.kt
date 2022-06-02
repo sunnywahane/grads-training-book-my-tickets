@@ -25,8 +25,6 @@ public class UpdateSeatsCommand : Command<UpdateSeatsParams> {
       |SET seats = seats - ?
       |WHERE
       |id = ?;
-      |
-      |
       |""".trimMargin()
 
   public override val paramSetter: ParamSetter<UpdateSeatsParams> = UpdateSeatsParamSetter()
