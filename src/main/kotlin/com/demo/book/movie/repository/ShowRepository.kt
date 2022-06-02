@@ -7,6 +7,7 @@ import com.demo.book.movie.request.MovieRequest
 import com.demo.book.movie.request.ShowRequest
 import liquibase.pro.packaged.it
 import movie.*
+import norm.command
 import norm.query
 import java.sql.Timestamp
 import java.time.Instant
@@ -48,9 +49,48 @@ class ShowRepository(@Inject private val datasource: DataSource) {
         )
     }
 
-    fun update(bookRequest: BookRequest): Boolean {
-        return true
+    fun bookSeats(bookRequest: BookRequest): Int = datasource.connection.use { connection ->
+        UpdateSeatsCommand().command(
+            connection,
+            UpdateSeatsParams(bookRequest.seats,
+                bookRequest.showId)
+        ).updatedRecordsCount
+    }
 
+    fun findOne(id: Int): Show = datasource.connection.use {
+            connection ->  ShowByIdQuery().query(
+        connection,
+        ShowByIdParams(
+            id
+        )
+    )
+    }.map {
+        Show(
+            it.id,
+            it.startTime.toLocalDateTime(),
+            it.movieId,
+            it.seats
+        )
+    }.first()
+
+    fun insertSeat(showId: Int, seat: Int): Unit = datasource.connection.use { connection ->
+        InsertSeatCommand().command(
+            connection,
+            InsertSeatParams(
+                showId,
+                seat
+            )
+        )
+    }
+
+    fun updateStatus(showId: Int, seat_no: Int): Unit = datasource.connection.use { connection ->
+        UpdateSeatStatusCommand().command(
+            connection,
+            UpdateSeatStatusParams(
+                showId,
+                seat_no
+            )
+        )
     }
 
 }

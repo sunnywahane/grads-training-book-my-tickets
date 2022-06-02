@@ -23,14 +23,26 @@ class ShowService(@Inject val showRepository: ShowRepository, @Inject val movieS
                 it.startTime.toEpochSecond(ZoneOffset.ofHoursMinutes(GMT_HOUR, GMT_MINUTE))*MILI_SECOND_CONVERTER + durationInMilliSeconds >= showRequest.startTime
             ) throw UnsupportedOperationException("A show is already running at this time")
         }
-        return showRepository.save(showRequest)
+        val show = showRepository.save(showRequest)
+        for(i in 1..120)
+        {
+            showRepository.insertSeat(show.id, i);
+        }
+        return show
     }
 
     fun allShows(): List<Show> {
         return showRepository.findAll().sortedByDescending { it.startTime }
     }
 
-    fun update(bookRequest: BookRequest) : Boolean{
-        return true
+    fun bookSeats(bookRequest: BookRequest) : Int{
+        val show = showRepository.findOne(bookRequest.showId);
+        if(show.seats!! < bookRequest.seats)throw UnsupportedOperationException("Required seats exceeds available seats")
+        val rec = showRepository.bookSeats(bookRequest)
+        for(i in bookRequest.seatList)
+        {
+            showRepository.updateStatus(bookRequest.showId, i)
+        }
+        return rec
     }
 }

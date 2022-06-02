@@ -1,6 +1,7 @@
 package com.demo.book.api
 
 import com.demo.book.movie.entity.Show
+import com.demo.book.movie.request.BookRequest
 import com.demo.book.movie.request.ShowRequest
 import com.demo.book.movie.service.ShowService
 import io.micronaut.http.HttpResponse
@@ -10,6 +11,7 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Put
 import javax.inject.Inject
 
 @Controller
@@ -25,6 +27,17 @@ class ShowApi(@Inject val showService: ShowService) {
         return try {
             HttpResponse.ok(showService.save(showRequest).id)
         } catch (e: UnsupportedOperationException) {
+            HttpResponse.status(HttpStatus.CONFLICT, e.message)
+        }
+    }
+
+    @Post("/shows/book")
+    fun bookShow(@Body bookRequest: BookRequest) : HttpResponse<Int>
+    {
+        return try{
+            HttpResponse.ok(showService.bookSeats(bookRequest))
+        }
+        catch (e: UnsupportedOperationException) {
             HttpResponse.status(HttpStatus.CONFLICT, e.message)
         }
     }
