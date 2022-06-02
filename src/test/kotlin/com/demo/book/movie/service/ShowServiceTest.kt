@@ -20,7 +20,7 @@ import java.time.ZonedDateTime
 
 class ShowServiceTest : StringSpec() {
 
-    private val mockShowRepository = mockk<ShowRepository>()
+    private val mockShowRepository = mockk<ShowRepository>(relaxUnitFun = true)
     private val mockMovieService = mockk<MovieService>()
 
     override fun afterEach(testCase: TestCase, result: TestResult) {
@@ -83,15 +83,22 @@ class ShowServiceTest : StringSpec() {
 
         "should be able to book seats" {
             val bookRequest = getDummyBookRequest(20)
-            every { mockShowRepository.update(bookRequest) } returns true
-            val actual = ShowService(mockShowRepository, mockMovieService).update(bookRequest)
-            actual shouldBe true
+            val referenceDate = ZonedDateTime.of(2021, 5, 21, 1, 15, 0, 0, ZoneId.systemDefault())
+            val existingShow = getDummyShow(1, referenceDate)
+            every { mockShowRepository.findOne(1) } returns existingShow
+            every { mockShowRepository.bookSeats(bookRequest) } returns 1
+            val actual = ShowService(mockShowRepository, mockMovieService).bookSeats(bookRequest)
+            actual shouldBe 1
         }
 
         "should throw an error when seats are not available" {
             val bookRequest = getDummyBookRequest(200)
+            val referenceDate = ZonedDateTime.of(2021, 5, 21, 1, 15, 0, 0, ZoneId.systemDefault())
+            val existingShow = getDummyShow(1, referenceDate)
+
+            every { mockShowRepository.findOne(1) } returns existingShow
             shouldThrow<UnsupportedOperationException> {
-                ShowService(mockShowRepository, mockMovieService).update(bookRequest)
+                ShowService(mockShowRepository, mockMovieService).bookSeats(bookRequest)
             }
 
         }
@@ -106,7 +113,7 @@ class ShowServiceTest : StringSpec() {
         return Show(id, startTime.toLocalDateTime(), 1, 120)
     }
     private fun getDummyBookRequest(tickets: Int): BookRequest {
-        return BookRequest(1, tickets)
+        return BookRequest(1, tickets, listOf(1,2,3))
     }
 
 }
