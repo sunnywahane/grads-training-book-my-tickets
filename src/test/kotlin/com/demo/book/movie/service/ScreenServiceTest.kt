@@ -15,5 +15,13 @@ class ScreenServiceTest: StringSpec() {
             val excepted = Screen(1, "Screen 1", 100)
             assert(result == excepted)
         }
+
+        "should ablw to call allMovies method on ScreenService" {
+            val mockScreenRepository = mockk<ScreenRepository>(relaxed = true)
+            val screenService = ScreenService(mockScreenRepository);
+            val result = screenService.allMovies()
+            val excepted = listOf(Screen(1, "Screen 1", 100))
+            assert(result == excepted)
+        }
     }
 }
