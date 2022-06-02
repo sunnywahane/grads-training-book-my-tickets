@@ -1,9 +1,13 @@
 package com.demo.book.api
 
 import com.demo.book.movie.entity.Movie
+import com.demo.book.movie.entity.Screen
+import com.demo.book.movie.request.ScreenRequest
+import com.demo.book.movie.request.ShowRequest
 import com.demo.book.movie.service.MovieService
 import com.demo.book.movie.service.ScreenService
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
@@ -18,7 +22,7 @@ class ScreenApi(@Inject val screenService: ScreenService) {
     }
 
     @Post
-    fun addScreen(): HttpResponse<String> {
-        return HttpResponse.ok("OK")
+    fun addScreen(@Body screeRequest: ScreenRequest): HttpResponse<Int> {
+        return HttpResponse.ok(screenService.save(screeRequest).id)
     }
 }

@@ -6,8 +6,10 @@ import com.demo.book.movie.request.ScreenRequest
 import movie.*
 import norm.query
 import javax.inject.Inject
+import javax.inject.Singleton
 import javax.sql.DataSource
 
+@Singleton
 class ScreenRepository(@Inject private val datasource: DataSource) {
 
     fun save(screenToSave: ScreenRequest): Screen = datasource.connection.use { connection ->

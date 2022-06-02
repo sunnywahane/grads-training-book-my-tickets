@@ -21,6 +21,8 @@ class ScreenApiTest : BaseIntegrationSpec() {
             response.status shouldBe HttpStatus.OK
             response.body.get() shouldBe 1
         }
+
+        "should "
     }
 
     private fun createNewScreen(screenReq: ScreenRequest): HttpResponse<Any> {
