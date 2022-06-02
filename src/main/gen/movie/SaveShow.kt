@@ -26,7 +26,8 @@ public class SaveShowRowMapper : RowMapper<SaveShowResult> {
   public override fun map(rs: ResultSet): SaveShowResult = SaveShowResult(
   id = rs.getObject("id") as kotlin.Int,
     startTime = rs.getObject("start_time") as java.sql.Timestamp,
-    movieId = rs.getObject("movie_id") as kotlin.Int)
+    movieId = rs.getObject("movie_id") as kotlin.Int,
+    seats = rs.getObject("seats") as kotlin.Int?)
 }
 
 public class SaveShowQuery : Query<SaveShowParams, SaveShowResult> {
@@ -44,5 +45,6 @@ public class SaveShowQuery : Query<SaveShowParams, SaveShowResult> {
 public data class SaveShowResult(
   public val id: Int,
   public val startTime: Timestamp,
-  public val movieId: Int
+  public val movieId: Int,
+  public val seats: Int?
 )

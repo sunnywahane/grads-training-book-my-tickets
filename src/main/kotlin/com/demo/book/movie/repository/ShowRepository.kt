@@ -28,7 +28,8 @@ class ShowRepository(@Inject private val datasource: DataSource) {
         Show(
             it.id,
             it.startTime.toLocalDateTime(),
-            it.movieId
+            it.movieId,
+            it.seats
         )
     }.first()
 
@@ -41,7 +42,8 @@ class ShowRepository(@Inject private val datasource: DataSource) {
         Show(
             it.id,
             it.startTime.toLocalDateTime(),
-            it.movieId
+            it.movieId,
+            it.seats
         )
     }
 
