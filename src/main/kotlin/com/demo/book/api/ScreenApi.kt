@@ -17,8 +17,8 @@ import javax.inject.Inject
 class ScreenApi(@Inject val screenService: ScreenService) {
 
     @Get
-    fun allScreens(): HttpResponse<String> {
-        return HttpResponse.ok("OK")
+    fun allScreens(): HttpResponse<List<Screen>> {
+        return HttpResponse.ok(screenService.allScreens())
     }
 
     @Post

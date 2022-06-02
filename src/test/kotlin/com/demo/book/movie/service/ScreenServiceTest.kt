@@ -23,7 +23,7 @@ class ScreenServiceTest: StringSpec() {
             val mockScreenRepository = mockk<ScreenRepository>()
             every { mockScreenRepository.findAll() } returns listOf(Screen(1, "Screen 1", 100))
             val screenService = ScreenService(mockScreenRepository)
-            val result = screenService.allMovies()
+            val result = screenService.allScreens()
             val excepted = listOf(Screen(1, "Screen 1", 100))
             assert(result == excepted)
         }

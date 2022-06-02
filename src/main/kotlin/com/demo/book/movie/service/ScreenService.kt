@@ -13,7 +13,7 @@ class ScreenService(@Inject val screenRepository: ScreenRepository) {
         return screenRepository.save(screenRequest)
     }
 
-    fun allMovies(): List<Screen> {
+    fun allScreens(): List<Screen> {
         return screenRepository.findAll()
     }
 }

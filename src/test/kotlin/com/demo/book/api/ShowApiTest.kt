@@ -87,7 +87,7 @@ class ShowApiTest : BaseIntegrationSpec() {
                 val response = createNewShow(
                     newShowRequest(referenceDate.toInstant().toEpochMilli()))
             } catch (e: HttpClientResponseException) {
-                e.status shouldBe HttpStatus.BAD_REQUEST
+                e.status shouldBe HttpStatus.CONFLICT
             }
         }
     }
