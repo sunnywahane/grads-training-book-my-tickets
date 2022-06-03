@@ -39,12 +39,16 @@ class ShowService(@Inject val showRepository: ShowRepository, @Inject val movieS
         val show = showRepository.findOne(bookRequest.showId);
         if(show.seats!! < bookRequest.seats)throw UnsupportedOperationException("Required seats exceeds available seats")
         val available = showRepository.availableSeats(bookRequest.showId)
-        if(bookRequest.seatList.any((Int) -> it !in available))
+        if(bookRequest.seatList.any{it !in available}) throw UnsupportedOperationException("Requested seats are not available")
         val rec = showRepository.bookSeats(bookRequest)
         for(i in bookRequest.seatList)
         {
             showRepository.updateStatus(bookRequest.showId, i)
         }
         return rec
+    }
+
+    fun getAvailableSeats(showId: Int): List<Int> {
+            return showRepository.availableSeats(showId)
     }
 }

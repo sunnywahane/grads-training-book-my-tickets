@@ -94,7 +94,7 @@ class ShowRepository(@Inject private val datasource: DataSource) {
         )
     }
 
-    fun availableSeats(showId: Int): List<Seat> = datasource.connection.use { connection ->
+    fun availableSeats(showId: Int): List<Int> = datasource.connection.use { connection ->
         GetNotBookedSeatsQuery().query(
             connection,
             GetNotBookedSeatsParams(
@@ -102,9 +102,7 @@ class ShowRepository(@Inject private val datasource: DataSource) {
             )
         )
     }.map {
-        Seat(
-            it.seatNo
-        )
+        it.seatNo
     }
 
 }

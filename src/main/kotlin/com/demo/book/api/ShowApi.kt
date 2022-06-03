@@ -10,6 +10,7 @@ import io.micronaut.http.MutableHttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import javax.inject.Inject
@@ -41,4 +42,10 @@ class ShowApi(@Inject val showService: ShowService) {
             HttpResponse.status(HttpStatus.CONFLICT, e.message)
         }
     }
+
+    @Get("/shows/{showId}")
+    fun getAvailableSeats(@PathVariable showId: Int) : HttpResponse<List<Int>> {
+        return HttpResponse.ok(showService.getAvailableSeats(showId))
+    }
+
 }
