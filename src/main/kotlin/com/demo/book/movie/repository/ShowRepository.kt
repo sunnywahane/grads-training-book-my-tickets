@@ -1,6 +1,7 @@
 package com.demo.book.movie.repository
 
 import com.demo.book.movie.entity.Movie
+import com.demo.book.movie.entity.Seat
 import com.demo.book.movie.entity.Show
 import com.demo.book.movie.request.BookRequest
 import com.demo.book.movie.request.MovieRequest
@@ -90,6 +91,19 @@ class ShowRepository(@Inject private val datasource: DataSource) {
                 showId,
                 seat_no
             )
+        )
+    }
+
+    fun availableSeats(showId: Int): List<Seat> = datasource.connection.use { connection ->
+        GetNotBookedSeatsQuery().query(
+            connection,
+            GetNotBookedSeatsParams(
+                showId
+            )
+        )
+    }.map {
+        Seat(
+            it.seatNo
         )
     }
 
